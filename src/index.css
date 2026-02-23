@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #ebebeb;
+  --color-primary-dark: #171310;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+}
+
+.font-story {
+  font-family: "DM Mono", monospace;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
