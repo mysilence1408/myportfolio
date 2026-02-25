@@ -3,6 +3,8 @@ import { Hero } from "../components/Hero";
 import { About } from "../components/About";
 import { Projects } from "../components/Projects";
 import { Image } from "../components/Image";
+import { Contact } from "../components/Contact";
+import { Footer } from "../components/Footer";
 
 const HomePage = () => {
   return (
@@ -12,10 +14,20 @@ const HomePage = () => {
       </header>
       <main>
         <Hero />
-        <About />
+        <section id="about">
+          <About />
+        </section>
         <Image />
-        <Projects />
+        <section id="projects">
+          <Projects />
+        </section>
+        <section id="contact">
+          <Contact />
+        </section>
       </main>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 };

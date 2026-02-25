@@ -2,6 +2,25 @@ import { gsap } from "gsap";
 import { useEffect, useLayoutEffect, useState } from "react";
 
 export function Navbar() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, left: 0 });
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+
+    if (!section) {
+      return;
+    }
+
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const navLinks = [
+    { name: "About", sectionId: "about" },
+    { name: "Projects", sectionId: "projects" },
+    { name: "Contact", sectionId: "contact" },
+  ];
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
@@ -19,6 +38,10 @@ export function Navbar() {
 
     // Set initial states
     gsap.set(".nav-links", {
+      opacity: 0,
+      pointerEvents: "none",
+    });
+    gsap.set(".mode-toggle", {
       opacity: 0,
       pointerEvents: "none",
     });
@@ -50,6 +73,16 @@ export function Navbar() {
         ease: "power2.out",
       })
       .to(
+        ".mode-toggle",
+        {
+          opacity: 1,
+          pointerEvents: "auto",
+          duration: 0.5,
+          ease: "power2.out",
+        },
+        "<",
+      )
+      .to(
         ".overlay-text",
         {
           color: "#8e8e8e",
@@ -66,37 +99,34 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav className=" fixed w-full p-4 lg:p-8  flex justify-between items-start z-60 font-story">
+    <nav className=" fixed w-full p-4 lg:p-8 flex justify-between items-start z-60 font-story text-white mix-blend-difference">
       <div className="h-6 overflow-hidden">
         <div className="flex flex-col items-end overlay-text text-white dark:text-white">
-          <a href="" className="h-6">
-            Front
-          </a>
-          <a href="" className="h-6">
-            End
-          </a>
-          <a href="" className="h-6">
-            Font end Developer
-          </a>
+          <span className="h-6">Front</span>
+          <span className="h-6">End</span>
+          <button className="h-6 cursor-pointer" onClick={() => scrollToTop()}>
+            Front end Developer
+          </button>
         </div>
       </div>
       <button
-        className=" cursor-pointer text-sm"
+        className="mode-toggle cursor-pointer text-sm absolute left-1/2 -translate-x-1/2"
         onClick={() => setIsDarkMode(!isDarkMode)}
       >
         {isDarkMode ? "Light Mode" : "Dark Mode"}
       </button>
       <div className="h-6">
         <div className="flex flex-col items-end nav-links z-0">
-          <a href="" className="h-6">
-            Home
-          </a>
-          <a href="" className="h-6">
-            About
-          </a>
-          <a href="" className="h-6">
-            Contact
-          </a>
+          {navLinks.map((link, index) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => scrollToSection(link.sectionId)}
+              className="h-6 cursor-pointer"
+            >
+              {link.name}
+            </button>
+          ))}
         </div>
       </div>
     </nav>

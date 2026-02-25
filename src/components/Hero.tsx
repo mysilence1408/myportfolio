@@ -239,7 +239,7 @@ export function Hero() {
           </div>
         </div>
       </div>
-      <div className="absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 hero-main-image">
+      <div className="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 hero-main-image">
         <div className="h-44 w-28 overflow-hidden">
           <img
             src="https://cdn.pixabay.com/photo/2025/09/22/14/50/shimabdinzade-girl-9848839_1280.jpg"
@@ -248,7 +248,7 @@ export function Hero() {
           />
         </div>
       </div>
-      <div className=" uppercase text-center text-[15vw] hero-header">
+      <div className="absolute left-1/2 top-[70%] lg:top-[60%] z-20 w-full -translate-x-1/2 translate-y-[130%] uppercase text-center text-[11vw] hero-header">
         <h1>Ashkan Kohandel</h1>
       </div>
     </section>

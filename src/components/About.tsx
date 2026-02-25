@@ -32,7 +32,7 @@ export function About() {
 
     const ctx = gsap.context(() => {
       gsap.set(firstLineRefs.current, { yPercent: 0, autoAlpha: 1 });
-      gsap.set(secondLineRefs.current, { yPercent: 200, autoAlpha: 0 });
+      gsap.set(secondLineRefs.current, { yPercent: 100, autoAlpha: 0 });
 
       gsap
         .timeline({
@@ -45,7 +45,7 @@ export function About() {
           },
         })
         .to(firstLineRefs.current, {
-          yPercent: 200,
+          yPercent: -200,
           autoAlpha: 0,
           duration: 0.5,
           ease: "power3.inOut",
@@ -70,39 +70,34 @@ export function About() {
       ref={sectionRef}
       className="h-screen px-4 lg:px-8 flex items-center justify-center"
     >
-      <div className="relative text-center text-4xl max-w-5xl mx-auto ">
-        <p className="leading-relaxed">
-          {firstTextLines.map((line, index) => (
-            <span key={`first-${index}`} className="block overflow-hidden">
-              <span
-                ref={(element) => {
-                  if (element) {
-                    firstLineRefs.current[index] = element;
-                  }
-                }}
-                className="block"
-              >
-                {line}
-              </span>
+      <div className="text-center text-4xl max-w-5xl mx-auto leading-relaxed w-full">
+        {firstTextLines.map((line, index) => (
+          <span
+            key={`line-${index}`}
+            className="relative block overflow-hidden"
+          >
+            <span
+              ref={(element) => {
+                if (element) {
+                  firstLineRefs.current[index] = element;
+                }
+              }}
+              className="block"
+            >
+              {line}
             </span>
-          ))}
-        </p>
-        <p className="absolute inset-0 leading-relaxed">
-          {secondTextLines.map((line, index) => (
-            <span key={`second-${index}`} className="block overflow-hidden">
-              <span
-                ref={(element) => {
-                  if (element) {
-                    secondLineRefs.current[index] = element;
-                  }
-                }}
-                className="block"
-              >
-                {line}
-              </span>
+            <span
+              ref={(element) => {
+                if (element) {
+                  secondLineRefs.current[index] = element;
+                }
+              }}
+              className="absolute inset-0 block"
+            >
+              {secondTextLines[index]}
             </span>
-          ))}
-        </p>
+          </span>
+        ))}
       </div>
     </div>
   );
