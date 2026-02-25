@@ -66,7 +66,7 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav className=" fixed w-full p-4 lg:p-8  flex justify-between items-start z-50 font-story">
+    <nav className=" fixed w-full p-4 lg:p-8  flex justify-between items-start z-60 font-story">
       <div className="h-6 overflow-hidden">
         <div className="flex flex-col items-end overlay-text text-white dark:text-white">
           <a href="" className="h-6">
