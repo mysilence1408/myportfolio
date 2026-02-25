@@ -87,7 +87,7 @@ export function Navbar() {
         {isDarkMode ? "Light Mode" : "Dark Mode"}
       </button>
       <div className="h-6">
-        <div className="flex flex-col items-end  text-black dark:text-white nav-links z-0">
+        <div className="flex flex-col items-end nav-links z-0">
           <a href="" className="h-6">
             Home
           </a>
