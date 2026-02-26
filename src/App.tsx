@@ -1,11 +1,12 @@
 import { Route, Routes } from "react-router";
 import "./App.css";
 import HomePage from "./pages/HomePage";
-import { useEffect, useLayoutEffect, useMemo } from "react";
-import ReactLenis, { useLenis } from "lenis/react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import ReactLenis from "lenis/react";
 
 function App() {
-  const lenis = useLenis();
+  const [isMobile, setIsMobile] = useState(false);
+
   const lenisOptions = useMemo(
     () => ({
       lerp: 0.08,
@@ -18,6 +19,23 @@ function App() {
     [],
   );
 
+  useEffect(() => {
+    const mobileQuery = window.matchMedia(
+      "(max-width: 1024px), (pointer: coarse)",
+    );
+
+    const updateIsMobile = () => {
+      setIsMobile(mobileQuery.matches);
+    };
+
+    updateIsMobile();
+    mobileQuery.addEventListener("change", updateIsMobile);
+
+    return () => {
+      mobileQuery.removeEventListener("change", updateIsMobile);
+    };
+  }, []);
+
   useLayoutEffect(() => {
     if ("scrollRestoration" in history) {
       history.scrollRestoration = "manual";
@@ -26,20 +44,17 @@ function App() {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    lenis?.scrollTo(0, {
-      immediate: true,
-      duration: 0,
-      lock: true,
-      force: true,
-    });
-  }, [lenis]);
-  return (
+  const routes = (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+    </Routes>
+  );
+
+  return isMobile ? (
+    routes
+  ) : (
     <ReactLenis root options={lenisOptions}>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-      </Routes>
+      {routes}
     </ReactLenis>
   );
 }
