@@ -37,15 +37,15 @@ export function Projects() {
   const images = [
     {
       id: 1,
-      src: "https://images.pexels.com/photos/1624496/pexels-photo-1624496.jpeg",
+      src: "/images/findora.png",
     },
     {
       id: 2,
-      src: "https://images.pexels.com/photos/1624496/pexels-photo-1624496.jpeg",
+      src: "/images/vida.png",
     },
     {
       id: 3,
-      src: "https://images.pexels.com/photos/1624496/pexels-photo-1624496.jpeg",
+      src: "/images/portfolio.png",
     },
     {
       id: 4,
@@ -176,7 +176,7 @@ export function Projects() {
                     src={image.src}
                     alt="image"
                     draggable={false}
-                    className="object-cover w-105 h-130 pointer-events-none"
+                    className="object-cover w-105 h-150 pointer-events-none"
                   ></img>
                 </div>
               );

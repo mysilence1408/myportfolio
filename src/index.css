@@ -10,6 +10,13 @@ body {
   font-family: "DM Sans", sans-serif;
 }
 
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .font-story {
   font-family: "DM Mono", monospace;
 }

@@ -85,7 +85,6 @@ export function Navbar() {
       .to(
         ".overlay-text",
         {
-          color: "#8e8e8e",
           duration: 0.5,
           ease: "power2.out",
         },
@@ -99,7 +98,7 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav className=" fixed w-full p-4 lg:p-8 flex justify-between items-start z-60 font-story text-white mix-blend-difference">
+    <nav className=" fixed w-full p-4 lg:p-8 flex justify-between items-center z-60 font-story text-white mix-blend-difference">
       <div className="h-6 overflow-hidden">
         <div className="flex flex-col items-end overlay-text text-white dark:text-white">
           <span className="h-6">Front</span>
@@ -110,12 +109,12 @@ export function Navbar() {
         </div>
       </div>
       <button
-        className="mode-toggle cursor-pointer text-sm absolute left-1/2 -translate-x-1/2"
+        className="mode-toggle cursor-pointer text-sm lg:absolute lg:left-1/2 lg:-translate-x-1/2"
         onClick={() => setIsDarkMode(!isDarkMode)}
       >
         {isDarkMode ? "Light Mode" : "Dark Mode"}
       </button>
-      <div className="h-6">
+      <div className="h-6 hidden lg:block">
         <div className="flex flex-col items-end nav-links z-0">
           {navLinks.map((link, index) => (
             <button
