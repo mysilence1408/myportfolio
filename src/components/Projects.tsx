@@ -1,19 +1,12 @@
 import { gsap } from "gsap";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef } from "react";
+import { Link } from "react-router";
+import { projects } from "../data/projects";
 
 export function Projects() {
   const carouselRef = useRef<HTMLDivElement>(null);
-  const dragStartX = useRef(0);
-  const dragStartScrollLeft = useRef(0);
   const maxScrollRef = useRef(0);
-  const lastPointerX = useRef(0);
-  const lastPointerTime = useRef(0);
-  const velocityX = useRef(0);
   const inertialTweenRef = useRef<gsap.core.Tween | null>(null);
-
-  const [isHovering, setIsHovering] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   const scrollCarousel = (direction: "left" | "right") => {
     const carousel = carouselRef.current;
@@ -50,138 +43,51 @@ export function Projects() {
     };
   }, []);
 
-  const images = [
-    {
-      id: 1,
-      src: "/images/findora.png",
-    },
-    {
-      id: 2,
-      src: "/images/vida.png",
-    },
-    {
-      id: 3,
-      src: "/images/portfolio.png",
-    },
-    {
-      id: 4,
-      src: "https://images.pexels.com/photos/1624496/pexels-photo-1624496.jpeg",
-    },
-    {
-      id: 5,
-      src: "https://images.pexels.com/photos/1624496/pexels-photo-1624496.jpeg",
-    },
-  ];
-
-  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-    setIsDragging(true);
-    gsap.killTweensOf(carousel);
-    inertialTweenRef.current?.kill();
-    dragStartX.current = event.clientX;
-    dragStartScrollLeft.current = carousel.scrollLeft;
-    lastPointerX.current = event.clientX;
-    lastPointerTime.current = performance.now();
-    velocityX.current = 0;
-    maxScrollRef.current = Math.max(
-      carousel.scrollWidth - carousel.clientWidth,
-      0,
-    );
-
-    event.currentTarget.setPointerCapture(event.pointerId);
-  };
-
-  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-    const bounds = carousel.getBoundingClientRect();
-    setCursorPosition({
-      x: event.clientX - bounds.left,
-      y: event.clientY - bounds.top,
-    });
-
-    if (!isDragging) return;
-
-    const now = performance.now();
-    const deltaTime = Math.max(now - lastPointerTime.current, 1);
-    velocityX.current = (event.clientX - lastPointerX.current) / deltaTime;
-    lastPointerX.current = event.clientX;
-    lastPointerTime.current = now;
-
-    const deltaX = event.clientX - dragStartX.current;
-    const intended = dragStartScrollLeft.current - deltaX;
-    const maxScroll = maxScrollRef.current;
-
-    carousel.scrollLeft = gsap.utils.clamp(0, maxScroll, intended);
-  };
-
-  const stopDragging = () => {
-    const carousel = carouselRef.current;
-
-    if (carousel) {
-      const maxScroll = maxScrollRef.current;
-      const momentumDistance = -velocityX.current * 320;
-      const intended = gsap.utils.clamp(
-        0,
-        maxScroll,
-        carousel.scrollLeft + momentumDistance,
-      );
-
-      const proxy = { value: carousel.scrollLeft };
-      inertialTweenRef.current?.kill();
-      inertialTweenRef.current = gsap.to(proxy, {
-        value: intended,
-        duration: 0.85,
-        ease: "power3.out",
-        onUpdate: () => {
-          carousel.scrollLeft = proxy.value;
-        },
-        onComplete: () => {
-          inertialTweenRef.current = null;
-        },
-      });
-    }
-
-    setIsDragging(false);
-  };
-
   return (
-    <div className=" pt-10">
-      <div className=" space-y-10">
+    <div className="pt-10">
+      <div className="space-y-10">
         <h1 className="text-4xl text-center">Projects</h1>
-        <div className="relative space-y-4">
+
+        <div className="space-y-4">
           <div
             ref={carouselRef}
-            className="flex gap-4 overflow-x-auto overflow-y-hidden select-none cursor-grab active:cursor-grabbing"
+            className="flex gap-4 overflow-x-auto overflow-y-hidden select-none"
             style={{ scrollbarGutter: "stable" }}
-            onPointerEnter={() => setIsHovering(true)}
-            onPointerLeave={() => {
-              setIsHovering(false);
-              stopDragging();
-            }}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={stopDragging}
-            onPointerCancel={stopDragging}
           >
-            {images.map((image) => {
-              return (
-                <div
-                  key={image.id}
-                  className=" overflow-hidden shrink-0 project-card"
-                >
+            {projects.map((project) => (
+              <Link
+                key={project.slug}
+                to={`/projects/${project.slug}`}
+                className="group shrink-0 overflow-hidden project-card"
+                aria-label={`Open ${project.title} project`}
+              >
+                <div className="relative overflow-hidden rounded-xl border border-current/10 bg-white/60 shadow-[0_20px_60px_rgba(0,0,0,0.08)] dark:bg-white/5">
                   <img
-                    src={image.src}
-                    alt="image"
+                    src={project.coverImage}
+                    alt={project.title}
                     draggable={false}
-                    className="object-cover w-105 h-150 pointer-events-none"
-                  ></img>
+                    className="h-150 w-105 object-cover transition duration-700 group-hover:scale-[1.03] pointer-events-none"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/15 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+                    <p className="font-story text-[10px] uppercase tracking-[0.35em] text-white/65">
+                      {project.category}
+                    </p>
+                    <div className="mt-2 flex items-end justify-between gap-4">
+                      <div>
+                        <h3 className="text-2xl font-medium">
+                          {project.title}
+                        </h3>
+                        <p className="text-sm text-white/70">{project.year}</p>
+                      </div>
+                      <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-white/80">
+                        View
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              );
-            })}
+              </Link>
+            ))}
           </div>
 
           <div className="flex justify-end gap-3 px-2">
@@ -189,7 +95,7 @@ export function Projects() {
               type="button"
               aria-label="Scroll projects left"
               onClick={() => scrollCarousel("left")}
-              className=" rounded-md bg-white/90 px-3 py-2 text-sm font-medium text-black shadow-lg backdrop-blur-sm transition hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black cursor-pointer dark:bg-black/85 dark:text-white"
+              className="rounded-md bg-white/90 px-3 py-2 text-sm font-medium text-black shadow-lg backdrop-blur-sm transition hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black cursor-pointer dark:bg-black/85 dark:text-white"
             >
               Prev
             </button>
@@ -202,15 +108,6 @@ export function Projects() {
               Next
             </button>
           </div>
-
-          {isHovering && (
-            <div
-              className="pointer-events-none absolute z-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white text-black dark:bg-black dark:text-white px-4 py-2 text-sm tracking-wide"
-              style={{ left: cursorPosition.x, top: cursorPosition.y }}
-            >
-              Drag
-            </div>
-          )}
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import "./App.css";
 import HomePage from "./pages/HomePage";
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import ReactLenis from "lenis/react";
+import { ProjectDetailPage } from "./pages/ProjectDetailPage";
 
 function App() {
   const [isMobile, setIsMobile] = useState(false);
@@ -47,6 +48,7 @@ function App() {
   const routes = (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/projects/:slug" element={<ProjectDetailPage />} />
     </Routes>
   );
 
