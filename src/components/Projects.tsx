@@ -15,6 +15,22 @@ export function Projects() {
   const [isDragging, setIsDragging] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
+  const scrollCarousel = (direction: "left" | "right") => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    inertialTweenRef.current?.kill();
+
+    const distance = Math.max(carousel.clientWidth * 0.8, 280);
+    const nextScrollLeft =
+      carousel.scrollLeft + (direction === "left" ? -distance : distance);
+
+    carousel.scrollTo({
+      left: gsap.utils.clamp(0, maxScrollRef.current, nextScrollLeft),
+      behavior: "smooth",
+    });
+  };
+
   useLayoutEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
@@ -74,14 +90,6 @@ export function Projects() {
       0,
     );
 
-    gsap.to(".project-card", {
-      scale: 0.985,
-      y: -4,
-      duration: 0.25,
-      ease: "power2.out",
-      overwrite: true,
-    });
-
     event.currentTarget.setPointerCapture(event.pointerId);
   };
 
@@ -112,14 +120,6 @@ export function Projects() {
 
   const stopDragging = () => {
     const carousel = carouselRef.current;
-
-    gsap.to(".project-card", {
-      scale: 1,
-      y: 0,
-      duration: 0.35,
-      ease: "power2.out",
-      overwrite: true,
-    });
 
     if (carousel) {
       const maxScroll = maxScrollRef.current;
@@ -152,10 +152,11 @@ export function Projects() {
     <div className=" pt-10">
       <div className=" space-y-10">
         <h1 className="text-4xl text-center">Projects</h1>
-        <div className="relative">
+        <div className="relative space-y-4">
           <div
             ref={carouselRef}
-            className="flex gap-4 overflow-x-auto select-none cursor-none"
+            className="flex gap-4 overflow-x-auto overflow-y-hidden select-none cursor-grab active:cursor-grabbing"
+            style={{ scrollbarGutter: "stable" }}
             onPointerEnter={() => setIsHovering(true)}
             onPointerLeave={() => {
               setIsHovering(false);
@@ -181,6 +182,25 @@ export function Projects() {
                 </div>
               );
             })}
+          </div>
+
+          <div className="flex justify-end gap-3 px-2">
+            <button
+              type="button"
+              aria-label="Scroll projects left"
+              onClick={() => scrollCarousel("left")}
+              className=" rounded-md bg-white/90 px-3 py-2 text-sm font-medium text-black shadow-lg backdrop-blur-sm transition hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black cursor-pointer dark:bg-black/85 dark:text-white"
+            >
+              Prev
+            </button>
+            <button
+              type="button"
+              aria-label="Scroll projects right"
+              onClick={() => scrollCarousel("right")}
+              className="rounded-md bg-white/90 px-3 py-2 text-sm font-medium text-black shadow-lg backdrop-blur-sm transition hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black cursor-pointer dark:bg-black/85 dark:text-white"
+            >
+              Next
+            </button>
           </div>
 
           {isHovering && (
