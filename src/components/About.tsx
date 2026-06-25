@@ -54,7 +54,7 @@ export function About() {
             scrollTrigger: {
               trigger: sectionRef.current,
               start: "top top",
-              end: "+=120%",
+              end: "+=80%",
               scrub: true,
               pin: true,
             },
