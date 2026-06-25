@@ -26,6 +26,8 @@ export function Navbar() {
   const navLinks = [
     { name: "About", sectionId: "about" },
     { name: "Projects", sectionId: "projects" },
+    { name: "Research", sectionId: "research" },
+    { name: "Patents", sectionId: "patents" },
     { name: "Contact", sectionId: "contact" },
   ];
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -50,9 +52,8 @@ export function Navbar() {
     }
 
     const overlayTextTl = gsap.timeline({ delay: 0.75 });
-    const navRevealTl = gsap.timeline({ delay: 6 }); // Sync with hero overlay disappearing
+    const navRevealTl = gsap.timeline({ delay: 6 });
 
-    // Set initial states
     gsap.set(".nav-links", {
       opacity: 0,
       pointerEvents: "none",
@@ -80,7 +81,6 @@ export function Navbar() {
       delay: 0.75,
     });
 
-    // Reveal nav links and change left text color when overlay disappears
     navRevealTl
       .to(".nav-links", {
         opacity: 1,
@@ -126,13 +126,13 @@ export function Navbar() {
               className="h-6 cursor-pointer"
               onClick={() => scrollToTop()}
             >
-              Front end Developer
+              Front-End Engineer
             </button>
           </div>
         </div>
       ) : (
         <Link to="/" className="text-current text-sm sm:text-base">
-          Front end Developer
+          Front-End Engineer
         </Link>
       )}
       <button

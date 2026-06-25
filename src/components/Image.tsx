@@ -35,9 +35,9 @@ export function Image() {
   return (
     <div ref={containerRef} className="overflow-hidden">
       <img
-        className="w-full h-auto block object-cover"
-        src="https://clarissahulse.com/cdn/shop/files/120395SummerBorderRainbow-BOTANICOCC070-031-ROOMSETWEB.jpg?v=1752585889"
-        alt="Traveling Image"
+        className="w-full lg:h-[300vh] block object-cover"
+        src="./images/coding.png"
+        alt="Coding Image"
       />
     </div>
   );

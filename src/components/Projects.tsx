@@ -46,7 +46,14 @@ export function Projects() {
   return (
     <div className="pt-10">
       <div className="space-y-10">
-        <h1 className="text-4xl text-center">Projects</h1>
+        <div className="text-center space-y-3">
+          <p className="font-story text-[10px] uppercase tracking-[0.45em] text-current/45 dark:text-white/45">
+            Section
+          </p>
+          <h1 className="text-4xl font-semibold text-black dark:text-white">
+            Projects
+          </h1>
+        </div>
 
         <div className="space-y-4">
           <div

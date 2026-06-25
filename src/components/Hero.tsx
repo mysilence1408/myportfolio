@@ -204,35 +204,35 @@ export function Hero() {
         <div className="absolute top-1/2 left-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center gap-4 px-8 hero-images-container">
           <div className="h-36 w-24 overflow-hidden img">
             <img
-              src="https://cdn.pixabay.com/photo/2025/09/22/14/50/shimabdinzade-girl-9848839_1280.jpg"
+              src="/images/1.png"
               alt=""
               className="w-full h-full object-cover"
             />
           </div>
           <div className="h-36 w-24 overflow-hidden img">
             <img
-              src="https://cdn.pixabay.com/photo/2025/09/22/14/50/shimabdinzade-girl-9848839_1280.jpg"
+              src="/images/2.png"
               alt=""
               className="w-full h-full object-cover"
             />
           </div>
           <div className="h-44 w-28 overflow-hidden img hero-img">
             <img
-              src="https://cdn.pixabay.com/photo/2025/09/22/14/50/shimabdinzade-girl-9848839_1280.jpg"
+              src="/images/main.png"
               alt=""
               className="w-full h-full object-cover"
             />
           </div>
           <div className="h-36 w-24 overflow-hidden img">
             <img
-              src="https://cdn.pixabay.com/photo/2025/09/22/14/50/shimabdinzade-girl-9848839_1280.jpg"
+              src="/images/3.png"
               alt=""
               className="w-full h-full object-cover"
             />
           </div>
           <div className="h-36 w-24 overflow-hidden img">
             <img
-              src="https://cdn.pixabay.com/photo/2025/09/22/14/50/shimabdinzade-girl-9848839_1280.jpg"
+              src="/images/4.png"
               alt=""
               className="w-full h-full object-cover"
             />
@@ -242,7 +242,7 @@ export function Hero() {
       <div className="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 hero-main-image">
         <div className="h-44 w-28 overflow-hidden">
           <img
-            src="https://cdn.pixabay.com/photo/2025/09/22/14/50/shimabdinzade-girl-9848839_1280.jpg"
+            src="/images/main.png"
             alt=""
             className="w-full h-full object-cover"
           />

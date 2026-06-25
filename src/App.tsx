@@ -1,8 +1,7 @@
-import { Route, Routes } from "react-router";
-import "./App.css";
+import { Route, Routes, useLocation } from "react-router";
 import HomePage from "./pages/HomePage";
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
-import ReactLenis from "lenis/react";
+import { ReactLenis, useLenis } from "lenis/react";
 import { ProjectDetailPage } from "./pages/ProjectDetailPage";
 
 function App() {
@@ -19,6 +18,12 @@ function App() {
     }),
     [],
   );
+  const location = useLocation();
+  const lenis = useLenis();
+
+  useEffect(() => {
+    lenis?.scrollTo(0, { immediate: true });
+  }, [lenis, location]);
 
   useEffect(() => {
     const mobileQuery = window.matchMedia(

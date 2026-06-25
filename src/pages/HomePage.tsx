@@ -3,6 +3,8 @@ import { Hero } from "../components/Hero";
 import { About } from "../components/About";
 import { Projects } from "../components/Projects";
 import { Image } from "../components/Image";
+import { Research } from "../components/Research";
+import { Patents } from "../components/Patents";
 import { Contact } from "../components/Contact";
 import { Footer } from "../components/Footer";
 
@@ -20,6 +22,12 @@ const HomePage = () => {
         <Image />
         <section id="projects">
           <Projects />
+        </section>
+        <section id="research">
+          <Research />
+        </section>
+        <section id="patents">
+          <Patents />
         </section>
         <section id="contact">
           <Contact />
