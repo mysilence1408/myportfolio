@@ -35,7 +35,7 @@ export function Image() {
   return (
     <div ref={containerRef} className="overflow-hidden">
       <img
-        className="w-full h-[300vh] block object-cover"
+        className="w-full h-auto lg:h-[300vh] block object-cover"
         src="./images/coding.png"
         alt="Coding Image"
       />
