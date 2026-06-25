@@ -1,6 +1,6 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -8,6 +8,7 @@ export function About() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const firstLineRefs = useRef<HTMLSpanElement[]>([]);
   const secondLineRefs = useRef<HTMLSpanElement[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
 
   const firstTextLines = [
     "I'm Ashkan, a Front-End Engineer and Master's student passionate about building",
@@ -21,12 +22,62 @@ export function About() {
     "everyday experiences and create meaningful value for both people and organizations.",
   ];
 
+  useEffect(() => {
+    const mobileQuery = window.matchMedia(
+      "(max-width: 768px), (pointer: coarse)",
+    );
+
+    const updateIsMobile = () => {
+      setIsMobile(mobileQuery.matches);
+    };
+
+    updateIsMobile();
+    mobileQuery.addEventListener("change", updateIsMobile);
+
+    return () => {
+      mobileQuery.removeEventListener("change", updateIsMobile);
+    };
+  }, []);
+
   useLayoutEffect(() => {
     if (!sectionRef.current) {
       return;
     }
 
     const ctx = gsap.context(() => {
+      if (isMobile) {
+        gsap.set(firstLineRefs.current, { yPercent: 0, autoAlpha: 1 });
+        gsap.set(secondLineRefs.current, { yPercent: 0, autoAlpha: 0 });
+
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top top",
+              end: "+=120%",
+              scrub: true,
+              pin: true,
+            },
+          })
+          .to({}, { duration: 0.55 })
+          .to(firstLineRefs.current, {
+            autoAlpha: 0,
+            duration: 0.25,
+            ease: "none",
+          })
+          .to(
+            secondLineRefs.current,
+            {
+              autoAlpha: 1,
+              duration: 0.25,
+              ease: "none",
+            },
+            "<0.05",
+          );
+
+        return;
+      }
+
       gsap.set(firstLineRefs.current, { yPercent: 0, autoAlpha: 1 });
       gsap.set(secondLineRefs.current, { yPercent: 100, autoAlpha: 0 });
 
@@ -59,7 +110,7 @@ export function About() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   return (
     <div
