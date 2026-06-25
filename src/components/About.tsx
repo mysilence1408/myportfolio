@@ -54,22 +54,22 @@ export function About() {
             scrollTrigger: {
               trigger: sectionRef.current,
               start: "top top",
-              end: "+=100%",
+              end: "+=180%",
               scrub: true,
               pin: true,
             },
           })
-          .to({}, { duration: 0.55 })
+          .to({}, { duration: 0.8 })
           .to(firstLineRefs.current, {
             autoAlpha: 0,
-            duration: 0.25,
+            duration: 0.3,
             ease: "none",
           })
           .to(
             secondLineRefs.current,
             {
               autoAlpha: 1,
-              duration: 0.25,
+              duration: 0.3,
               ease: "none",
             },
             "<0.05",
