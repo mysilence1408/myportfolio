@@ -12,43 +12,7 @@ export function Contact() {
         />
       </div>
 
-      <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
-        <div className="flex flex-col justify-between rounded-[2rem] border border-black/10 bg-white/60 p-8 text-primary-dark shadow-[0_24px_80px_rgba(0,0,0,0.12)] backdrop-blur-md dark:border-white/10 dark:bg-black/20 dark:text-primary lg:p-12">
-          <div className="space-y-6">
-            <p className="font-story text-xs uppercase tracking-[0.45em] text-primary-dark/55 dark:text-primary/55">
-              Contact
-            </p>
-            <h2 className="max-w-xl text-4xl font-medium leading-tight sm:text-5xl lg:text-6xl">
-              Let&apos;s shape something thoughtful, useful, and visually sharp.
-            </h2>
-            <p className="max-w-lg text-sm leading-7 text-primary-dark/70 dark:text-primary/70 sm:text-base">
-              If you are building a portfolio, launching a product, or refining
-              an existing experience, send a message and I will respond with a
-              clear next step.
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-2xl border border-black/10 bg-white/70 p-4 backdrop-blur-sm dark:border-white/10 dark:bg-white/5">
-              <span className="block text-xs uppercase tracking-[0.25em] text-primary-dark/45 dark:text-primary/45">
-                Reply
-              </span>
-              <span className="mt-2 block text-lg text-primary-dark dark:text-primary">
-                Within 24 hours
-              </span>
-            </div>
-
-            <div className="rounded-2xl border border-black/10 bg-white/70 p-4 backdrop-blur-sm dark:border-white/10 dark:bg-white/5">
-              <span className="block text-xs uppercase tracking-[0.25em] text-primary-dark/45 dark:text-primary/45">
-                Availability
-              </span>
-              <span className="mt-2 block text-lg text-primary-dark dark:text-primary">
-                Open for projects
-              </span>
-            </div>
-          </div>
-        </div>
-
+      <div className="mx-auto w-full max-w-2xl px-4 lg:px-8">
         <form
           action=""
           className="rounded-[2rem] border border-black/10 bg-white/80 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.12)] backdrop-blur-xl dark:border-white/10 dark:bg-black/25 lg:p-10"
